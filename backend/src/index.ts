@@ -59,12 +59,4 @@ app.post('/api/v1/signin', async (c) => {
 	}
 })
 
-// database url
-// postgres://avnadmin:AVNS_W461pJgBM0TOLsIhuwV@postgres-ambatigururajesh818-c2af.b.aivencloud.com:23340/defaultdb?sslmode=require
-// pool url
-// DATABASE_URL="prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiMjJmZjBiYTEtMDRiMS00OWUwLWFhY2QtNDViYjIxOGU2NTRiIiwidGVuYW50X2lkIjoiNjc3OWRmN2Q5N2E4MzNjNmQyZWEwNDM1MTlmOTBiYzQ0NTU3ZDEwN2RlODk3ZTZiMWUwMDRmOWIzNTE1Y2EzZCIsImludGVybmFsX3NlY3JldCI6ImM5YWM3ZWNjLTQ2ZmEtNDEzZS04ZGI1LTQxM2U0YmNkOWZlOSJ9.Yg7_nt01LsF63JMNuuNZOhaXOSRWHy9rYj0cw2ahX-w"
-
-
-
-
 export default app
