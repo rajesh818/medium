@@ -62,7 +62,6 @@ blogRouter.put("/", async (c) => {
       data: {
         title: body.title,
         content: body.content,
-        authorId: "d2820b9b-ded1-4caa-bf1a-c3d8a9c974fb",
       },
     });
     return c.json({
