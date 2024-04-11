@@ -1,7 +1,6 @@
 import { Hono } from 'hono'
-import { sign } from 'hono/jwt'
-import { PrismaClient } from '@prisma/client/edge'
-import { withAccelerate } from '@prisma/extension-accelerate'
+import { userRouter } from './routes/user';
+import { blogRouter } from './routes/post';
 
 // Create the main Hono app
 const app = new Hono<{
@@ -11,52 +10,8 @@ const app = new Hono<{
 	}
 }>();
 
-
-app.post('/api/v1/signup', async (c) => {
-	const prisma = new PrismaClient({
-		datasourceUrl: c.env?.DATABASE_URL	,
-	}).$extends(withAccelerate());
-
-	const body = await c.req.json();
-	try {
-		const user = await prisma.user.create({
-			data: {
-				email: body.email,
-				password: body.password
-			}
-		});
-		const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
-		return c.json({ jwt });
-	} catch(e) {
-		c.status(403);
-		return c.json({ error: "error while signing up" });
-	}
-})
-
-app.post('/api/v1/signin', async (c) => {
-	const prisma = new PrismaClient({
-		datasourceUrl: c.env?.DATABASE_URL	,
-	}).$extends(withAccelerate());
-
-	const body = await c.req.json();
-	try {
-		const user = await prisma.user.findUnique({
-      where: {
-        email: body.email,
-        password: body.password,
-      }
-    });
-		if (!user) {
-      c.status(403);
-      return c.json({ error: "user not found" });
-    }
-  
-    const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
-    return c.json({ jwt });
-	} catch(e) {
-		c.status(403);
-		return c.json({ error: "not able to find the user" });
-	}
-})
+app.route('/api/v1/user', userRouter);
+app.route('/api/v1/blog', blogRouter);
 
 export default app
+
